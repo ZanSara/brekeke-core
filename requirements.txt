@@ -1,0 +1,5 @@
+precise @ https://github.com/ZanSara/mycroft-precise.git
+espnet
+espnet_model_zoo
+whisper @ git+https://github.com/openai/whisper.git
+openai
