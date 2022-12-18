@@ -116,14 +116,14 @@ class Listener:
                 self.query_runner.play()
   
         else:
-            # if not self.in_conversation:
-            self.speaker.say("Did you call me?")
-            self.query_runner.play()
-            # else:                
-            #     self.stage = "wake"
-            #     self.in_conversation = False
-            #     self.query_runner.pause()
-            #     self.wake_runner.play()
+            if not self.in_conversation:
+                self.speaker.say("Did you call me?")
+                self.query_runner.play()
+            else:                
+                self.stage = "wake"
+                self.in_conversation = False
+                self.query_runner.pause()
+                self.wake_runner.play()
 
     def listen(self):
         try:
