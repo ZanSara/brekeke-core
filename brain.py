@@ -1,6 +1,5 @@
 import os
 import openai
-from chatgpt.api import ChatGPT
 
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -10,7 +9,6 @@ END_TOKEN = "END OF CONVERSATION"
 class Brain:
 
     def __init__(self):
-        self.session = ChatGPT(session_token="your-session-token")
         self.reset_history()
 
     def reset_history(self):
