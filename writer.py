@@ -10,7 +10,7 @@ class Writer:
 
     def __init__(self):
         super().__init__()
-        self.model = whisper.load_model("base")
+        self.model = whisper.load_model("base.en")
 
     def transcribe(self, audio_file: Path, sample_rate=16000) -> str:
         return self.model.transcribe(audio_file)["text"]

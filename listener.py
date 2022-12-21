@@ -97,23 +97,25 @@ class Listener:
 
     def query(self):
         print("--------- RECEIVED ---------")
-        self.query_runner.pause()
+        self.query_runner.stop()
         save_audio("query.wav", self.query_audio_buffer)
         self.query_audio_buffer = np.zeros(self.listener.pr.buffer_samples, dtype=float)
 
         question = self.writer.transcribe("query.wav")
         if question:
             self.in_conversation = True
-            reply = self.brain.reply(question)
-            if END_TOKEN in reply:
+            
+            reply, end_of_conversation = self.brain.reply(question)
+            
+            if reply:
+                self.speaker.say(reply) / 1000
+                self.query_runner.start()
+
+            if end_of_conversation:
                 self.stage = "wake"
                 self.in_conversation = False
                 self.query_runner.pause()
                 self.wake_runner.play()            
-            else:
-                self.speaker.say(reply)
-                time.sleep(1)
-                self.query_runner.play()
   
         else:
             if not self.in_conversation:
